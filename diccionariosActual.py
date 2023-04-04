@@ -46,7 +46,8 @@ dicMaterias = {
     1:{"nomMateria":"Matematicas"},
     2:{"nomMateria":"Biologia"},
     3:{"nomMateria":"Fisica"},
-    4:{"nomMateria":"Quimica"}
+    4:{"nomMateria":"Quimica"},
+    5:{"nomMateria":"GeoFisica"}
 }
 
 dicNotas ={
