@@ -1,5 +1,4 @@
 import time
-import from funciones.py
 
 time.sleep()
 
@@ -67,6 +66,126 @@ dicNotas ={
        "notaFinal":4.9}
 }
 
+###########################################          FUNCIONES NOTAS          ######################################################################################
+#
+def agregarNotas(diccionario, idEstudiante, idMateria):
+    n1= float(input("Ingrese la primera nota"))
+    n2="P"
+    n3="P"
+    nF="P"
+    id = crearId(diccionario)
+        
+    diccionario[id+1] = {
+        "idEstudiante":idEstudiante,
+        "idMateria":idMateria,
+        "nota1":n1,
+        "nota2":n2,
+        "nota3":n3,
+        "notaFinal":nF,
+        }
+    ingresar = int(input("?Desea Ingresar la siguiente nota?: 1.SI 2.NO \t"))
+    if ingresar == True:
+        n2 = float(input("Ingrese la segunda nota"))
+        if ingresar == True:
+            ingresar = int(input("?Desea Ingresar la siguiente nota?: 1.SI 2.NO \t"))
+            if ingresar == True:
+                n3 = float(input("Ingrese la tercera nota"))
+                nF= ((n1+n2+n3)/3)
+
+    diccionario[id+1] = {
+        "idEstudiante":idEstudiante,
+        "idMateria":idMateria,
+        "nota1":n1,
+        "nota2":n2,
+        "nota3":n3,
+        "notaFinal":nF,
+        }
+    
+    return diccionario
+
+def verNotas(diccionario):
+    listaNotas = "ID \t Nom. Est \t ASIGNATURA \t nota1 \t nota2 \t nota3 \t notaFINAL\n\n"
+
+    for idNota in diccionario:
+        idEstud = diccionario[idNota]["idEstudiante"]
+        idMat = diccionario[idNota]["idMateria"]
+        listaNotas += (str(idNota) + " \t" + str(dicEstudiantes[diccionario[idNota]["idEstudiante"]]["nombres"])+ " \t" +str(dicMaterias[idMat]["nomMateria"])+ " \t" + str(diccionario[idNota]["nota1"])+ " \t" + str(diccionario[idNota]["nota2"])+ " \t" + str(diccionario[idNota]["nota3"])+ " \t" + str(diccionario[idNota]["notaFinal"]) +"\n")
+    return print(listaNotas)
+
+def verNota():
+    nota = None
+
+def editarNotas(diccionario, id, key):
+    
+    if key == 1:
+        key = "nota1"
+        cambio = float(input("Ingrese la nueva primera nota: \t"))
+        print("*******Nota 1 cambiada satisfactoriamente ************")
+    elif key == 2:
+        key = "nota2"
+        cambio = float(input("Ingrese la nueva segunda nota: \t"))
+        print("*******Nota 2 cambiada satisfactoriamente ************")
+    elif key == 3:
+        key = "nota3"
+        cambio = float(input("Ingrese la nueva tercera nota: \t"))
+        print("\n*******Nota 3 cambiada satisfactoriamente ************\n")
+    
+    diccionario[id][key] = cambio
+    if diccionario[id]["nota3"] != "P":
+        calcularDefinitiva(id)
+
+    verNotas(diccionario)
+
+def calcularDefinitiva (id):
+    n1 = dicNotas[id]["nota1"]
+    n2 = dicNotas[id]["nota2"]
+    n3 = dicNotas[id]["nota3"]
+    dicNotas[id]["notaFinal"] = (n1+n2+n3)/3
+
+#############################################       FUNCIONES MATERIAS    ##################################################################################################
+
+def crearId(diccionario):
+    id = list(diccionario.keys())[len(diccionario)-1]
+    return id
+
+def agregarMateria(materia, nombreMateria):
+    id = crearId(materia)
+    materia[id+1] = {"nomMateria":nombreMateria}
+    return materia
+
+def verMaterias(materias):
+    listaMaterias = ""
+    for materia in materias:
+        listaMaterias += str(materia) + " " + str(materias[materia]["nomMateria"]+"\n")
+    return listaMaterias
+
+def editarMateria(diccionario, id, newName):
+    diccionario[id] = {"nomMateria": newName}
+
+###########################################          FUNCIONES ESTUDIANTES          ######################################################################################
+
+def agregarEstudiante(diccionario, nombreEstudiante, apellidoEstudiante, correo):
+    id = crearId(diccionario)
+
+    diccionario[id+1] = {
+        "nombres":nombreEstudiante,
+        "apellidos":apellidoEstudiante,
+        "correo":correo
+        }
+    return diccionario
+
+def verEstudiantes(diccionario):
+    listaEstudiantes = ""
+    for estudiante in diccionario:
+        listaEstudiantes += (str(estudiante) + " \t" + str(diccionario[estudiante]["nombres"]) + " \t" + str(diccionario[estudiante]["apellidos"]) + " \t" + str(diccionario[estudiante]["correo"]) + "\n")
+    return print(listaEstudiantes)
+
+def editarEstudiante(diccionario, id, key,cambio):
+    diccionario[id][key] = cambio
+
+def delete(diccionario):
+        codigo = int(input("Ingrese el codigo de la ID a elminiar: \t"))
+        del(diccionario[codigo])
 #############################################            MENUS            ##################################################################################################
 
 def menuMaterias(materias):
